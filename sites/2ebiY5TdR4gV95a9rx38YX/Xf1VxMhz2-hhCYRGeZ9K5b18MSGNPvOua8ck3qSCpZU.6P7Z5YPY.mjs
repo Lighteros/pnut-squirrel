@@ -26257,7 +26257,7 @@ var Oh = rt(function (a, e) {
                                   }),
                                 }),
                                 m(re, {
-                                  href: "https://x.com/pnut_squirrel",
+                                  href: "https://x.com/squirrel_pnut",
                                   nodeId: "K_AJDeXyl",
                                   children: O(Ea, {
                                     __framer__animate: { transition: Gr },
@@ -26606,7 +26606,7 @@ var Oh = rt(function (a, e) {
                                   }),
                                 }),
                                 m(re, {
-                                  href: "https://t.me/pnut_squirrel",
+                                  href: "https://t.me/squirrel_pnut",
                                   nodeId: "ZIxE5UVxd",
                                   children: O(Ea, {
                                     __framer__animate: { transition: Gr },
