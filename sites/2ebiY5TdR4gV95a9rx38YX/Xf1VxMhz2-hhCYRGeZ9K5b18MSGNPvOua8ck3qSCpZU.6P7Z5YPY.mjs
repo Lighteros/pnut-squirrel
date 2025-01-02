@@ -25583,7 +25583,7 @@ var Oh = rt(function (a, e) {
                               ref: b,
                               children: [
                                 m(re, {
-                                  href: "https://dexscreener.com/ethereum/0x0123456789",
+                                  href: "https://dexscreener.com/ethereum/0xe1201c38d48698db0ba16ffa4e9af7f6acb95c7e",
                                   nodeId: "LginYYHlh",
                                   children: O(Ea, {
                                     __framer__animate: { transition: Gr },
@@ -25907,7 +25907,7 @@ var Oh = rt(function (a, e) {
                                   }),
                                 }),
                                 m(re, {
-                                  href: "https://www.dextools.io/app/en/ether/pool-explorer/0x7CaB0703db7eDbe015000186A1B719BD633Be960",
+                                  href: "https://www.dextools.io/app/en/ether/pair-explorer/0xe1201c38d48698db0ba16ffa4e9af7f6acb95c7e?t=1735822345916",
                                   nodeId: "UsQ1ADh5b",
                                   children: O(Ea, {
                                     __framer__animate: { transition: Gr },
