@@ -1,0 +1,111 @@
+import{Circle as i,Rectangle as n,OptionsColor as t,getDistance as
+s,ParticlesInteractorBase as e,getLinkRandomColor as o,drawLine as
+l,getDistances as a,getStyleFromRgb as r,rangeColorToRgb as c,drawTriangle as
+d,getRandom as u,getRangeValue as h,getLinkColor as
+k}from"tsparticles-engine";class CircleWarp extends
+i{constructor(i,n,t,s){super(i,n,t);this.canvasSize=s;this.canvasSize=Object.assign({},s)}contains(i){if(super.contains(i))return
+true;const n={x:i.x-this.canvasSize.width,y:i.y};if(super.contains(n))return
+true;const
+t={x:i.x-this.canvasSize.width,y:i.y-this.canvasSize.height};if(super.contains(t))return
+true;const s={x:i.x,y:i.y-this.canvasSize.height};return
+super.contains(s)}intersects(t){if(super.intersects(t))return true;const
+s=t,e=t,o={x:t.position.x-this.canvasSize.width,y:t.position.y-this.canvasSize.height};if(void
+0!==e.radius){const n=new i(o.x,o.y,2*e.radius);return
+super.intersects(n)}if(void 0!==s.size){const i=new
+n(o.x,o.y,2*s.size.width,2*s.size.height);return super.intersects(i)}return
+false}}class LinksShadow{constructor(){this.blur=5;this.color=new
+t;this.color.value="#000";this.enable=false}load(i){if(i){void
+0!==i.blur&&(this.blur=i.blur);this.color=t.create(this.color,i.color);void
+0!==i.enable&&(this.enable=i.enable)}}}class
+LinksTriangle{constructor(){this.enable=false;this.frequency=1}load(i){if(i){void
+0!==i.color&&(this.color=t.create(this.color,i.color));void
+0!==i.enable&&(this.enable=i.enable);void
+0!==i.frequency&&(this.frequency=i.frequency);void
+0!==i.opacity&&(this.opacity=i.opacity)}}}class
+Links{constructor(){this.blink=false;this.color=new
+t;this.color.value="#fff";this.consent=false;this.distance=100;this.enable=false;this.frequency=1;this.opacity=1;this.shadow=new
+LinksShadow;this.triangles=new
+LinksTriangle;this.width=1;this.warp=false}load(i){if(i){void
+0!==i.id&&(this.id=i.id);void
+0!==i.blink&&(this.blink=i.blink);this.color=t.create(this.color,i.color);void
+0!==i.consent&&(this.consent=i.consent);void
+0!==i.distance&&(this.distance=i.distance);void
+0!==i.enable&&(this.enable=i.enable);void
+0!==i.frequency&&(this.frequency=i.frequency);void
+0!==i.opacity&&(this.opacity=i.opacity);this.shadow.load(i.shadow);this.triangles.load(i.triangles);void
+0!==i.width&&(this.width=i.width);void 0!==i.warp&&(this.warp=i.warp)}}}function
+getLinkDistance(i,n,t,e,o){let l=s(i,n);if(!o||l<=t)return l;const
+a={x:n.x-e.width,y:n.y};l=s(i,a);if(l<=t)return l;const
+r={x:n.x-e.width,y:n.y-e.height};l=s(i,r);if(l<=t)return l;const
+c={x:n.x,y:n.y-e.height};l=s(i,c);return l}class Linker extends
+e{constructor(i){super(i);this.linkContainer=i}clear(){}init(){this.linkContainer.particles.linksColors=new
+Map}async interact(n){var t;if(!n.options.links)return;n.links=[];const
+s=n.getPosition(),e=this.container,o=e.canvas.size;if(s.x<0||s.y<0||s.x>o.width||s.y>o.height)return;const
+l=n.options.links,a=l.opacity,r=null!==(t=n.retina.linksDistance)&&void
+0!==t?t:0,c=l.warp,d=c?new CircleWarp(s.x,s.y,r,o):new
+i(s.x,s.y,r),u=e.particles.quadTree.query(d);for(const i of u){const
+t=i.options.links;if(n===i||!(null===t||void 0===t?void
+0:t.enable)||l.id!==t.id||i.spawning||i.destroyed||!i.links||-1!==n.links.map((i=>i.destination)).indexOf(i)||-1!==i.links.map((i=>i.destination)).indexOf(n))continue;const
+e=i.getPosition();if(e.x<0||e.y<0||e.x>o.width||e.y>o.height)continue;const
+d=getLinkDistance(s,e,r,o,c&&t.warp);if(d>r)return;const
+u=(1-d/r)*a;this.setColor(n);n.links.push({destination:i,opacity:u})}}isEnabled(i){var
+n;return!!(null===(n=i.options.links)||void 0===n?void
+0:n.enable)}loadParticlesOptions(i,...n){var t,s;i.links||(i.links=new
+Links);for(const e of n)i.links.load(null!==(s=null!==(t=null===e||void
+0===e?void 0:e.links)&&void 0!==t?t:null===e||void 0===e?void
+0:e.lineLinked)&&void 0!==s?s:null===e||void 0===e?void
+0:e.line_linked)}reset(){}setColor(i){if(!i.options.links)return;const
+n=this.linkContainer,t=i.options.links;let s=void
+0===t.id?n.particles.linksColor:n.particles.linksColors.get(t.id);if(s)return;const
+e=t.color;s=o(e,t.blink,t.consent);void
+0===t.id?n.particles.linksColor=s:n.particles.linksColors.set(t.id,s)}}async
+function loadInteraction(i){await i.addInteractor("particlesLinks",(i=>new
+Linker(i)))}function drawLinkLine(i,n,t,e,o,d,u,h,k,p,f,y){let
+v=false;if(s(t,e)<=o){l(i,t,e);v=true}else if(u){let n;let s;const
+r={x:e.x-d.width,y:e.y};const c=a(t,r);if(c.distance<=o){const
+i=t.y-c.dy/c.dx*t.x;n={x:0,y:i};s={x:d.width,y:i}}else{const
+i={x:e.x,y:e.y-d.height};const l=a(t,i);if(l.distance<=o){const
+i=t.y-l.dy/l.dx*t.x;const
+e=-i/(l.dy/l.dx);n={x:e,y:0};s={x:e,y:d.height}}else{const
+i={x:e.x-d.width,y:e.y-d.height};const l=a(t,i);if(l.distance<=o){const
+i=t.y-l.dy/l.dx*t.x;const
+e=-i/(l.dy/l.dx);n={x:e,y:i};s={x:n.x+d.width,y:n.y+d.height}}}}if(n&&s){l(i,t,n);l(i,e,s);v=true}}if(v){i.lineWidth=n;h&&(i.globalCompositeOperation=k);i.strokeStyle=r(p,f);if(y.enable){const
+n=c(y.color);if(n){i.shadowBlur=y.blur;i.shadowColor=r(n)}}i.stroke()}}function
+drawLinkTriangle(i,n,t,s,e,o,l,a){d(i,n,t,s);e&&(i.globalCompositeOperation=o);i.fillStyle=r(l,a);i.fill()}class
+LinkInstance{constructor(i){this.container=i}drawParticle(i,n){var t;const
+s=this.container,e=n.options;if(!n.links||n.links.length<=0)return;i.save();const
+o=n.links.filter((i=>e.links&&s.particles.getLinkFrequency(n,i.destination)<=e.links.frequency));for(const
+i of
+o){this.drawTriangles(s,e,n,i,o);i.opacity>0&&(null!==(t=n.retina.linksWidth)&&void
+0!==t?t:0)>0&&this.drawLinkLine(n,i)}i.restore()}particleCreated(i){i.links=[];if(!i.options.links)return;const
+n=this.container.retina.pixelRatio;i.retina.linksDistance=i.options.links.distance*n;i.retina.linksWidth=i.options.links.width*n}particleDestroyed(i){i.links=[]}drawLinkLine(i,n){const
+t=this.container,s=t.actualOptions,e=n.destination,o=i.getPosition(),l=e.getPosition();let
+a=n.opacity;t.canvas.draw((n=>{var r,d,p;if(!i.options.links)return;let f;const
+y=null===(r=i.options.twinkle)||void 0===r?void 0:r.lines;if(null===y||void
+0===y?void 0:y.enable){const
+i=y.frequency,n=c(y.color),t=u()<i;if(t&&n){f=n;a=h(y.opacity)}}if(!f){const
+n=i.options.links,s=void 0!==(null===n||void 0===n?void
+0:n.id)?t.particles.linksColors.get(n.id):t.particles.linksColor;f=k(i,e,s)}if(!f)return;const
+v=null!==(d=i.retina.linksWidth)&&void
+0!==d?d:0,w=null!==(p=i.retina.linksDistance)&&void
+0!==p?p:0;drawLinkLine(n,v,o,l,w,t.canvas.size,i.options.links.warp,s.backgroundMask.enable,s.backgroundMask.composite,f,a,i.options.links.shadow)}))}drawLinkTriangle(i,n,t){var
+e;if(!i.options.links)return;const
+o=this.container,l=o.actualOptions,a=n.destination,r=t.destination,d=i.options.links.triangles,u=null!==(e=d.opacity)&&void
+0!==e?e:(n.opacity+t.opacity)/2;u<=0||o.canvas.draw((n=>{var t;const
+e=i.getPosition(),h=a.getPosition(),p=r.getPosition(),f=null!==(t=i.retina.linksDistance)&&void
+0!==t?t:0;if(s(e,h)>f||s(p,h)>f||s(p,e)>f)return;let y=c(d.color);if(!y){const
+n=i.options.links,t=void 0!==(null===n||void 0===n?void
+0:n.id)?o.particles.linksColors.get(n.id):o.particles.linksColor;y=k(i,a,t)}y&&drawLinkTriangle(n,e,h,p,l.backgroundMask.enable,l.backgroundMask.composite,y,u)}))}drawTriangles(i,n,t,s,e){var
+o,l,a;const r=s.destination,c=i.particles;if(!((null===(o=n.links)||void
+0===o?void 0:o.triangles.enable)&&(null===(l=r.options.links)||void 0===l?void
+0:l.triangles.enable)))return;const d=null===(a=r.links)||void 0===a?void
+0:a.filter((n=>{const t=i.particles.getLinkFrequency(r,n.destination);return
+r.options.links&&t<=r.options.links.frequency&&e.findIndex((i=>i.destination===n.destination))>=0}));if(null===d||void
+0===d?void 0:d.length)for(const i of d){const
+e=i.destination,o=c.getTriangleFrequency(t,r,e);o>n.links.triangles.frequency||this.drawLinkTriangle(t,s,i)}}}class
+LinksPlugin{constructor(){this.id="links"}getPlugin(i){return new
+LinkInstance(i)}loadOptions(){}needsPlugin(){return true}}async function
+loadPlugin(i){const n=new LinksPlugin;await i.addPlugin(n)}async function
+loadParticlesLinksInteraction(i){await loadInteraction(i);await
+loadPlugin(i)}export{Links,LinksShadow,LinksTriangle,loadParticlesLinksInteraction};
+//# sourceMappingURL=index.js.map

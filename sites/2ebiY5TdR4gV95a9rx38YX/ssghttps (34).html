@@ -1,0 +1,42 @@
+function
+$8164c72eb32cbbfc$export$3d870b97f7a56ca3({topLeftCornerRadius:o,topRightCornerRadius:n,bottomRightCornerRadius:a,bottomLeftCornerRadius:e,width:r,height:i}){const
+$={topLeft:-1,topRight:-1,bottomLeft:-1,bottomRight:-1};const
+d={topLeft:o,topRight:n,bottomLeft:e,bottomRight:a};Object.entries(d).sort((([,t],[,o])=>o-t)).forEach((([o,n])=>{const
+a=o;const e=t[a];const h=Math.min.apply(null,e.map((t=>{const
+o=d[t.corner];if(0===n&&0===o)return 0;const a=$[t.corner];const
+e="top"===t.side||"bottom"===t.side?r:i;return
+a>=0?e-$[t.corner]:n/(n+o)*e})));$[a]=h;d[a]=Math.min(n,h)}));return{topLeft:{radius:d.topLeft,roundingAndSmoothingBudget:$.topLeft},topRight:{radius:d.topRight,roundingAndSmoothingBudget:$.topRight},bottomLeft:{radius:d.bottomLeft,roundingAndSmoothingBudget:$.bottomLeft},bottomRight:{radius:d.bottomRight,roundingAndSmoothingBudget:$.bottomRight}}}const
+t={topLeft:[{corner:"topRight",side:"top"},{corner:"bottomLeft",side:"left"}],topRight:[{corner:"topLeft",side:"top"},{corner:"bottomRight",side:"right"}],bottomLeft:[{corner:"bottomRight",side:"bottom"},{corner:"topLeft",side:"left"}],bottomRight:[{corner:"bottomLeft",side:"bottom"},{corner:"topRight",side:"right"}]};function
+$be0670f6a5a657f9$export$a2f9a538d41e7bd0({cornerRadius:t,cornerSmoothing:o,preserveSmoothing:n,roundingAndSmoothingBudget:a}){let
+e=(1+o)*t;if(!n){const n=a/t-1;o=Math.min(o,n);e=Math.min(e,a)}const
+r=90*(1-o);const
+i=Math.sin($be0670f6a5a657f9$var$toRadians(r/2))*t*Math.sqrt(2);const
+$=(90-r)/2;const d=t*Math.tan($be0670f6a5a657f9$var$toRadians($/2));const
+h=45*o;const f=d*Math.cos($be0670f6a5a657f9$var$toRadians(h));const
+c=f*Math.tan($be0670f6a5a657f9$var$toRadians(h));let g=(e-i-f-c)/3;let
+s=2*g;if(n&&e>a){const t=a-c-i-f;const o=t/6;const
+n=t-o;g=Math.min(g,n);s=t-g;e=Math.min(e,a)}return{a:s,b:g,c:f,d:c,p:e,arcSectionLength:i,cornerRadius:t}}function
+$be0670f6a5a657f9$export$a4b62df84ac6ef86({width:t,height:o,topLeftPathParams:n,topRightPathParams:a,bottomLeftPathParams:e,bottomRightPathParams:r}){return`\n
+M ${t-a.p} 0\n ${$be0670f6a5a657f9$var$drawTopRightPath(a)}\n L ${t} ${o-r.p}\n
+${$be0670f6a5a657f9$var$drawBottomRightPath(r)}\n L ${e.p} ${o}\n
+${$be0670f6a5a657f9$var$drawBottomLeftPath(e)}\n L 0 ${n.p}\n
+${$be0670f6a5a657f9$var$drawTopLeftPath(n)}\n Z\n `.replace(/[\t\s\n]+/g,"
+").trim()}function
+$be0670f6a5a657f9$var$drawTopRightPath({cornerRadius:t,a:o,b:n,c:a,d:e,p:r,arcSectionLength:i}){return
+t?`\n c ${o} 0 ${o+n} 0 ${o+n+a} ${e}\n a ${t} ${t} 0 0 1 ${i} ${i}\n c ${e}
+${a}\n ${e} ${n+a}\n ${e} ${o+n+a}`:`l ${r} 0`}function
+$be0670f6a5a657f9$var$drawBottomRightPath({cornerRadius:t,a:o,b:n,c:a,d:e,p:r,arcSectionLength:i}){return
+t?`\n c 0 ${o}\n 0 ${o+n}\n ${-e} ${o+n+a}\n a ${t} ${t} 0 0 1 -${i} ${i}\n c
+${-a} ${e}\n ${-(n+a)} ${e}\n ${-(o+n+a)} ${e}`:`l 0 ${r}`}function
+$be0670f6a5a657f9$var$drawBottomLeftPath({cornerRadius:t,a:o,b:n,c:a,d:e,p:r,arcSectionLength:i}){return
+t?`\n c ${-o} 0\n ${-(o+n)} 0\n ${-(o+n+a)} ${-e}\n a ${t} ${t} 0 0 1 -${i}
+-${i}\n c ${-e} ${-a}\n ${-e} ${-(n+a)}\n ${-e} ${-(o+n+a)}`:`l ${-r}
+0`}function
+$be0670f6a5a657f9$var$drawTopLeftPath({cornerRadius:t,a:o,b:n,c:a,d:e,p:r,arcSectionLength:i}){return
+t?`\n c 0 ${-o}\n 0 ${-(o+n)}\n ${e} ${-(o+n+a)}\n a ${t} ${t} 0 0 1 ${i}
+-${i}\n c ${a} ${-e}\n ${n+a} ${-e}\n ${o+n+a} ${-e}`:"l 0 "+-r}function
+$be0670f6a5a657f9$var$toRadians(t){return t*Math.PI/180}function
+$6424334e4a2a8c1c$export$4d0751d7849c93f6({cornerRadius:t=0,topLeftCornerRadius:o,topRightCornerRadius:n,bottomRightCornerRadius:a,bottomLeftCornerRadius:e,cornerSmoothing:r,width:i,height:$,preserveSmoothing:d=false}){o=o??t;n=n??t;e=e??t;a=a??t;if(o===n&&n===a&&a===e&&e===o){const
+t=Math.min(i,$)/2;const n=Math.min(o,t);const
+a=(0,$be0670f6a5a657f9$export$a2f9a538d41e7bd0)({cornerRadius:n,cornerSmoothing:r,preserveSmoothing:d,roundingAndSmoothingBudget:t});return(0,$be0670f6a5a657f9$export$a4b62df84ac6ef86)({width:i,height:$,topLeftPathParams:a,topRightPathParams:a,bottomLeftPathParams:a,bottomRightPathParams:a})}const{topLeft:h,topRight:f,bottomLeft:c,bottomRight:g}=(0,$8164c72eb32cbbfc$export$3d870b97f7a56ca3)({topLeftCornerRadius:o,topRightCornerRadius:n,bottomRightCornerRadius:a,bottomLeftCornerRadius:e,width:i,height:$});return(0,$be0670f6a5a657f9$export$a4b62df84ac6ef86)({width:i,height:$,topLeftPathParams:(0,$be0670f6a5a657f9$export$a2f9a538d41e7bd0)({cornerSmoothing:r,preserveSmoothing:d,cornerRadius:h.radius,roundingAndSmoothingBudget:h.roundingAndSmoothingBudget}),topRightPathParams:(0,$be0670f6a5a657f9$export$a2f9a538d41e7bd0)({cornerSmoothing:r,preserveSmoothing:d,cornerRadius:f.radius,roundingAndSmoothingBudget:f.roundingAndSmoothingBudget}),bottomRightPathParams:(0,$be0670f6a5a657f9$export$a2f9a538d41e7bd0)({cornerSmoothing:r,preserveSmoothing:d,cornerRadius:g.radius,roundingAndSmoothingBudget:g.roundingAndSmoothingBudget}),bottomLeftPathParams:(0,$be0670f6a5a657f9$export$a2f9a538d41e7bd0)({cornerSmoothing:r,preserveSmoothing:d,cornerRadius:c.radius,roundingAndSmoothingBudget:c.roundingAndSmoothingBudget})})}export{$6424334e4a2a8c1c$export$4d0751d7849c93f6
+as getSvgPath}; //# sourceMappingURL=module.js.map

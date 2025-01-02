@@ -1,0 +1,15 @@
+import{itemFromSingleOrMultiple as t,isInArray as a,executeOnSingleOrMultiple as
+e,loadFont as n}from"tsparticles-engine";const
+o=["text","character","char"];class TextDrawer{draw(a,e,n,o){var i,l,s;const
+r=e.shapeData;if(void 0===r)return;const c=r.value;if(void 0===c)return;const
+p=e;void 0===p.text&&(p.text=t(c,e.randomIndexData));const
+d=p.text,x=null!==(i=r.style)&&void 0!==i?i:"",h=null!==(l=r.weight)&&void
+0!==l?l:"400",f=2*Math.round(n),u=null!==(s=r.font)&&void
+0!==s?s:"Verdana",v=e.fill,w=d.length*n/2;a.font=`${x} ${h} ${f}px "${u}"`;const
+g={x:-w,y:n/2};a.globalAlpha=o;v?a.fillText(d,g.x,g.y):a.strokeText(d,g.x,g.y);a.globalAlpha=1}getSidesCount(){return
+12}async init(t){const
+i=t.actualOptions;if(o.find((t=>a(t,i.particles.shape.type)))){const
+t=o.map((t=>i.particles.shape.options[t])).find((t=>!!t)),a=[];e(t,(t=>{a.push(n(t.font,t.weight))}));await
+Promise.all(a)}}}async function loadTextShape(t){const a=new
+TextDrawer;for(const e of o)await t.addShape(e,a)}export{loadTextShape}; //#
+sourceMappingURL=index.js.map

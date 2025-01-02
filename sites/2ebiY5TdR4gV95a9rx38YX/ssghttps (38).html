@@ -1,0 +1,40 @@
+/* * Animated Counter by framer.today * v1.0.0 * * hi@framer.today * _joerl on 𝕏
+* * Full terms here ↴ * https://framer.today/license * */import{jsx as _jsx,jsxs
+as _jsxs}from"react/jsx-runtime";import*as React
+from"react";import{addPropertyControls,ControlType}from"framer";// Utility
+functions const random=(min,max)=>Math.floor(Math.random()*(max-min))+min;const
+range=(start,end,step=1)=>{let output=[];for(let
+i=start;i<end;i+=step){output.push(i);}return output;};const
+useRandomInterval=(callback,minDelay,maxDelay)=>{const
+timeoutId=React.useRef(null);React.useEffect(()=>{let isEnabled=typeof
+minDelay==="number"&&typeof maxDelay==="number";if(isEnabled){const
+handleTick=()=>{const
+nextTickAt=random(minDelay,maxDelay);timeoutId.current=window.setTimeout(()=>{callback();handleTick();},nextTickAt);};handleTick();}return()=>window.clearTimeout(timeoutId.current);},[minDelay,maxDelay]);};const
+generateSparkle=(color,size,sparkleImage)=>{return{id:String(random(1e4,99999)),createdAt:Date.now(),color,size:random(size.min,size.max),sparkleImage,style:{top:random(0,100)+"%",left:random(0,100)+"%"}};};/**
+* @framerSupportedLayoutWidth any-prefer-fixed * @framerSupportedLayoutHeight
+any-prefer-fixed * @framerIntrinsicHeight 250 * @framerIntrinsicWidth 250 *
+@framerDisableUnlink */export default function
+Sparkles(props){const[sparkles,setSparkles]=React.useState([]);useRandomInterval(()=>{const
+sparkle=generateSparkle(props.color,props.size,props.sparkleImage);const
+now=Date.now();const nextSparkles=sparkles.filter(sp=>{const
+delta=now-sp.createdAt;return
+delta<props.duration;});nextSparkles.push(sparkle);setSparkles(nextSparkles);},props.duration,props.duration);React.useEffect(()=>{setSparkles(range(0,1).map(()=>generateSparkle(props.color,props.size,props.sparkleImage)));},[props.color,props.size,props.sparkleImage,props.duration]);const
+containerStyle={display:"inline-block",position:"relative",width:150,height:80,...props.style};return
+/*#__PURE__*/_jsxs("div",{style:containerStyle,children:[sparkles.map(sparkle=>/*#__PURE__*/_jsx("div",{style:{position:"absolute",pointerEvents:"none",animation:`growAndShrink
+${props.duration/2}ms ease-in-out
+forwards`,top:sparkle.style.top,left:sparkle.style.left,width:sparkle.size,height:sparkle.size},children:sparkle.sparkleImage?/*#__PURE__*/_jsx("img",{src:sparkle.sparkleImage,alt:"",style:{width:"100%",height:"100%"}}):/*#__PURE__*/_jsx("svg",{width:sparkle.size,height:sparkle.size,viewBox:"0
+0 68 68",fill:"none",style:{animation:props.spinEnabled?"spin 1000ms linear
+forwards":"none"},children:/*#__PURE__*/_jsx("path",{d:"M26.5 25.5C19.0043
+33.3697 0 34 0 34C0 34 19.1013 35.3684 26.5 43.5C33.234 50.901 34 68 34 68C34 68
+36.9884 50.7065 44.5 43.5C51.6431 36.647 68 34 68 34C68 34 51.6947 32.0939 44.5
+25.5C36.5605 18.2235 34 0 34 0C34 0 33.6591 17.9837 26.5
+25.5Z",fill:sparkle.color})})},sparkle.id)),/*#__PURE__*/_jsx("style",{children:`
+@keyframes growAndShrink { 0% { transform: scale(0); } 50% { transform:
+scale(1); } 100% { transform: scale(0); } } @keyframes spin { from { transform:
+rotate(0deg); } to { transform: rotate(180deg); } }
+`})]});}Sparkles.defaultProps={color:"#FFC700",size:{min:10,max:20},duration:800,spinEnabled:true,sparkleImage:null};addPropertyControls(Sparkles,{color:{type:ControlType.Color,title:"Color",defaultValue:Sparkles.defaultProps.color},size:{type:ControlType.Object,title:"Size",controls:{min:{type:ControlType.Number,title:"Min",min:5,max:50,defaultValue:10},max:{type:ControlType.Number,title:"Max",min:10,max:100,defaultValue:20}}},duration:{type:ControlType.Number,title:"Duration",min:100,max:5e3,defaultValue:800,unit:"ms"},spinEnabled:{type:ControlType.Boolean,title:"Spin",defaultValue:true},sparkleImage:{type:ControlType.Image,title:"Image",//
+description: "Optional custom image", description:`Optional custom image *from
+framer.today* [License](https://framer.today/license) `}}); export const
+__FramerMetadata__ =
+{"exports":{"default":{"type":"reactComponent","name":"Sparkles","slots":[],"annotations":{"framerContractVersion":"1","framerSupportedLayoutHeight":"any-prefer-fixed","framerSupportedLayoutWidth":"any-prefer-fixed","framerDisableUnlink":"","framerIntrinsicWidth":"250","framerIntrinsicHeight":"250"}},"__FramerMetadata__":{"type":"variable"}}}
+//# sourceMappingURL=./Sparkles.map
